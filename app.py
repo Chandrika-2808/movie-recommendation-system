@@ -2,9 +2,19 @@ import streamlit as st
 import pandas as pd
 import requests
 import pickle
+import os
+import gdown
 
-# Load the processed data and similarity matrix
-with open('movie_data.pkl', 'rb') as file:
+FILE_ID = "1dnlJhtjRmatRsFOcdA9Bkz6t2KsUXZUC"
+
+if not os.path.exists("movie_data.pkl"):
+    gdown.download(
+        f"https://drive.google.com/uc?id={FILE_ID}",
+        "movie_data.pkl",
+        quiet=False
+    )
+
+with open("movie_data.pkl", "rb") as file:
     movies, cosine_sim = pickle.load(file)
 
 # Function to get movie recommendations
